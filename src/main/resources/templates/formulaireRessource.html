@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1">
+<head>
+  <meta charset="UTF-8">
+  <title>Ajouter ressource</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div layout:fragment="content1">
+  <div class="col-md-6 offset-3">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <form class="row g-3" method="post" th:action="@{save}">
+      <div class="col-md-6">
+        <label>Titre</label>
+        <input class="form-control" type="text" name="titre" th:value="${ressource.titre}">
+        <span class="text-danger" th:errors="${ressource.titre}"></span>
+      </div>
+      <div class="col-md-6">
+        <label>Date d'achat</label>
+        <input class="form-control" type="date" name="dateAchat" th:value="${ressource.dateAchat}">
+        <span th:errors="${ressource.dateAchat}"></span>
+      </div>
+      <div class="col-md-6">
+        <label>Prix</label>
+        <input class="form-control" type="number" name="prix" th:value="${ressource.prix}">
+        <span th:errors="${ressource.prix}"></span>
+      </div>
+      <div class="col-md-6">
+        <label>Note</label>
+        <input class="form-control " type="number" name="note" th:value="${ressource.note}">
+        <span class="text-danger" th:errors="${ressource.note}"></span>
+      </div>
+
+      <button type="submit" class="btn btn-outline-secondary" >Ajouter</button>
+    </form>
+  </div>
+
+</div>
+</body>
+</html>

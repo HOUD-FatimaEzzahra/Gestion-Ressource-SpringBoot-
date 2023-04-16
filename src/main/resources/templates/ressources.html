@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des ressources</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+<body>
+<div layout:fragment="content1">
+<div class="container mt-2">
+    <div class="card border-0">
+        <h3 align="center"> Liste des ressources</h3>
+        </br>
+        </br>
+        <div align="right">
+            <form method="get" th:action="@{/user/index}">
+                <input type="text" name="motCle" th:value="${motCle}">
+                <button type="submit" class="btn btn-secondary btn-sm" >Checher</button>
+            </form>
+        </div>
+        <div>
+            <table class="table table-sm">
+            <thead>
+            <th>CODE</th>
+            <th>TITRE</th>
+            <th>DATE DE ACHAT</th>
+            <th>PRIX</th>
+            <th>NOTE</th>
+            <th> </th>
+            </thead>
+            <tbody>
+            <tr th:each="ressource:${ListRessources}">
+                <td th:text="${ressource.id}"></td>
+                <td th:text="${ressource.getTitre()}"></td>
+                <td th:text="${ressource.getDateAchat()}"></td>
+                <td th:text="${ressource.getPrix()}"></td>
+                <td th:text="${ressource.getNote()}"></td>
+                <td align="right" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                    <a onclick="return confirm('Etês vous sur ?')" class="btn btn-outline-danger btn-sm" th:href="@{/admin/delete(id=${ressource.id}, motCle=${motCle}, page=${currentPage})}">Supprimer</a>
+                    <a class="btn btn-outline-success btn-sm" th:href="@{/admin/editRessource(id=${ressource.id}, motCle=${motCle}, page=${currentPage})}">Modifier</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+            </br>
+            </br>
+        <div>
+            <ul class="nav nav-pills">
+                <li th:each="page,status:${pages}">
+                    <a th:class="${status.index==currentPage?'btn btn-dark ms-2 btn-sm':'btn btn-outline-dark ms-2 btn-sm'}"
+                       th:text="${status.index}"
+                       th:href="@{/user/index(page=${status.index},motCle=${motCle})}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
